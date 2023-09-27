@@ -2,9 +2,9 @@ const express=require("express")
 const bcrypt=require("bcrypt")
 const jwt=require("jsonwebtoken")
 const router=express.Router()
-const Blacklist = require("../model/Blacklist")
-const password = require("../middleware/passchecker")
 const UserModel = require("../models/user.models")
+const Blacklist = require("../models/Blacklist")
+const password = require("../middlewares/passchecker")
 router.post("/register",password, async(req,res)=>{
     const {email,pass}=req.body
     try {
@@ -45,7 +45,7 @@ router.post("/login",async(req,res)=>{
 })
 router.get("/logout",async(req,res)=>{
     const token=req.headers.authorization
-
+  
     try {
         const data=new Blacklist({token})
         await data.save()
