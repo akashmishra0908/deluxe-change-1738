@@ -2,7 +2,12 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from '../pages/HomePage'
 import { Signin } from '../pages/Signin'
+
+import {Signup} from "../pages/Signup"
+
+
 import SignUp from '../pages/SignUp'
+
 
 const AllRoutes = () => {
   return (
