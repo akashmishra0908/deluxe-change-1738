@@ -15,6 +15,7 @@ import {
   InputRightElement,
   InputGroup,
   useToast,
+  useComponentStyles__unstable,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
@@ -77,12 +78,11 @@ export const Signin = () => {
       email,
       pass:password,
     };
-
     axios.post("https://etutorhub-server.onrender.com/users/login", payload)
       .then((res) => {
         //alert(res.data.msg);
-        localStorage.setItem("frontendtoken", res.data.token);
-        if (res.data.msg === "Login Successful") {
+        localStorage.setItem("frontendtoken", res.data.Token);
+        if (res.data.msg === "Login successful!") {
           signinSuccess(res.data.msg);
           navigate("/");
         }
@@ -120,7 +120,7 @@ export const Signin = () => {
         px={6}
       >
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign In </Heading>
+          <Heading fontSize={"2xl"}>Log in to your e-TutorHub account</Heading>
         </Stack>
 
         <Box
