@@ -19,21 +19,20 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
-export const Signup = () => {
+const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [gender, setGender] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   const toast = useToast();
   const navigate = useNavigate();
 
   const signupSuccess = (msg) => {
     toast({
       title: msg,
-      description: "Thank You!!Login Now",
+      description: "Successfully Registered!",
       status: "success",
       duration: 9000,
       isClosable: true,
@@ -85,7 +84,7 @@ export const Signup = () => {
       .post("https://etutorhub-server.onrender.com/users/register", payload)
       .then((res) => {
         //alert(res.data.msg);
-        if (res.data.msg === "Registration Successful") {
+        if (res.data.msg === "The new user has been registered") {
           signupSuccess(res.data.msg);
           navigate("/signin");
         }
@@ -108,11 +107,8 @@ export const Signup = () => {
     setGender("");
     setPassword("");
   };
-
   return (
-    <div 
-      //style={{paddingTop:"70px"}}
-    >
+    <div>
       <Flex
       // border={"1px solid "}
       minH={"100vh"}
@@ -123,7 +119,6 @@ export const Signup = () => {
 
     >
       <Stack
-        //border={"1px solid red"}
         spacing={5}
         mx={"auto"}
         w={"1000px"}
@@ -133,7 +128,7 @@ export const Signup = () => {
       >
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
-            Sign Up
+          Sign up and start learning
           </Heading>
         </Stack>
 
@@ -222,6 +217,7 @@ export const Signup = () => {
               >
                 Sign up
               </Button>
+              <p>By signing up, you agree to our Terms and Policy.</p>
             </Stack>
 
             <Stack pt={6}>
@@ -237,5 +233,7 @@ export const Signup = () => {
       </Stack>
     </Flex>
     </div>
-  );
-};
+  )
+}
+
+export default SignUp
