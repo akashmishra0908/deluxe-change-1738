@@ -3,6 +3,7 @@ const { connection } = require("./db");
 const app=express();
 const cors=require("cors");
 const userrouter = require("./routes/user.routes");
+const courserouter = require("./routes/course.route");
 
 //For req.body of post data
 app.use(express.json());
@@ -12,6 +13,7 @@ app.use(cors({
     origin:'*'
 }))
 app.use("/users",userrouter)
+app.use("/course",courserouter)
 app.get("/",(req,res)=>{
     res.status(200).json({msg:"Welcome to Base end point"})
 })
