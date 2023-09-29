@@ -20,6 +20,7 @@ import {
 import axios from "axios";
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import background from "../images/background.jpg";
 
 export const Signin = () => {
   const [email, setEmail] = useState("");
@@ -107,7 +108,10 @@ export const Signin = () => {
       minH={"70vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      // bg={useColorModeValue("gray.50", "gray.800")}
+      bgImage={background}
+      bgSize={"cover"}
+      backgroundRepeat={"no-repeat"}
       pt={{base:"50px", md: "40px", lg: "80px" }}
     >
       <Stack
