@@ -5,7 +5,6 @@ import { Signin } from '../pages/Signin'
 import SignUp from '../pages/SignUp'
 import { SingleDetailPage } from '../pages/SingleDetailPage'
 
-
 const AllRoutes = () => {
   return (
     <Routes>

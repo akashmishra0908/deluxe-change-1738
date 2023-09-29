@@ -18,6 +18,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import axios from "axios";
+import background from "../images/background.jpg";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -80,10 +81,12 @@ const SignUp = () => {
       pass:password,
       email
     };
+    console.log(payload)
     axios
       .post("https://etutorhub-server.onrender.com/users/register", payload)
       .then((res) => {
         //alert(res.data.msg);
+        console.log(res,'res')
         if (res.data.msg === "The new user has been registered") {
           signupSuccess(res.data.msg);
           navigate("/signin");
@@ -110,11 +113,13 @@ const SignUp = () => {
   return (
     <div>
       <Flex
-      // border={"1px solid "}
       minH={"100vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      // bg={useColorModeValue("BlackAlpha.50", "BlackAlpha.50")}
+      bgImage={background}
+      bgSize={"cover"}
+      backgroundRepeat={"no-repeat"}
       pt={{base:"50px", md: "40px", lg: "80px" }}
 
     >
