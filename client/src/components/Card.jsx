@@ -1,7 +1,8 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { FaGraduationCap } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import RatingStars from "../RatingComponent/RatingStars";
+import RatingStars from "./RatingComponent/RatingStars";
+
 const Card = ({
   rating,
   title,
@@ -21,7 +22,7 @@ const Card = ({
         gap={"5px"}
         borderWidth="1px"
         borderRadius="md"
-        borderColor="#c9c9c9"
+       backgroundColor="#faf5f8"
         boxShadow="xl"
         p={4}
         m={2}
@@ -66,7 +67,7 @@ const Card = ({
           <Flex>
             <RatingStars rating={rating} total_ratings={total_ratings} />
           </Flex>
-          <Text fontSize="sm">{` (${total_ratings.toLocaleString()}) `}</Text>
+          <Text fontSize="sm">{` (${total_ratings}) `}</Text>
         </Flex>
         <Flex>
           <Text fontWeight={"bold"}>{`\u20B9 ${price}`}</Text>
