@@ -82,6 +82,7 @@ export const Signin = () => {
       .then((res) => {
         //alert(res.data.msg);
         localStorage.setItem("frontendtoken", res.data.Token);
+        console.log(res.data.Token)
         if (res.data.msg === "Login successful!") {
           signinSuccess(res.data.msg);
           navigate("/");
