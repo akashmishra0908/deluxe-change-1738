@@ -29,7 +29,7 @@ router.get("/",async(req,res)=>{
           const course=await CourseModel.find(condition)
          return res.status(200).send({"Course":course})
         }else{
-            const courses=await CourseModel.find()
+            const courses=await CourseModel.find({})
             // console.log(course)
            return res.status(200).send({"Course":courses})  
         }
