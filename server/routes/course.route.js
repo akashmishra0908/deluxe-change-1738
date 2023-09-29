@@ -83,4 +83,19 @@ router.delete("/delete/:id",async(req,res)=>{
        return res.status(400).send( {"msg":"Something went wrong",error:error})
     }
 })
+
+router.get("/singleProductPage/:courseId", async (req, res) => {
+    const { courseId } = req.params;    
+    console.log('courseId:', courseId)
+    try {
+      const singleProductPage = await CourseModel.findOne({_id:courseId});
+      console.log('singleProductPage:', singleProductPage)
+      if (!singleProductPage) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      res.status(200).json(singleProductPage);
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });  
 module.exports=router
