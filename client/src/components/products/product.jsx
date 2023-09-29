@@ -10,24 +10,38 @@ const Product = () => {
   const [course, setCourse] = useState([]);
 
   useEffect(() => {
-  
+    // Define the URL you want to fetch data from
     const url = `https://etutorhub-server.onrender.com/course`;
 
-    fetch(url)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
+    fetch(url,
+      {
+        method: "GET",
+        headers: {
+
+          "Authorization": localStorage.getItem('frontendtoken')
+        },
+      })
+      .then((res) => {
+
+        if (res.ok) {
+
+          return res.json();
         } else {
-          throw new Error("Error: " + response.status);
+
+          throw new Error("Error: " + res.status);
         }
       })
       .then((data) => {
-        setCourse(data.courses);
+        setCourse(data.Course);
+
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   }, []);
+
+
+
   const handlePrevSlide = () => {
     setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
@@ -54,7 +68,7 @@ const Product = () => {
           </Box>
         ))}
       </Flex>
-      {/* {currentIndex > 0 && (
+      {currentIndex > 0 && (
         <IconButton
           icon={<ChevronLeftIcon />}
           onClick={handlePrevSlide}
@@ -77,7 +91,7 @@ const Product = () => {
           transform="translateY(-50%)"
           _focus={{ outline: "none" }}
         />
-      )} */}
+      )}
     </Box>
   );
 };
