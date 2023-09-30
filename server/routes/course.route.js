@@ -22,13 +22,18 @@ router.post("/addcourse",async(req,res)=>{
     }
 })
 router.get("/",async(req,res)=>{
-    const {title}=req.query
+    const {title,category,sort}=req.query
     try {
         if(title){
           let condition ={title:new RegExp(title)}
           const course=await CourseModel.find(condition)
          return res.status(200).send({"Course":course})
-        }else{
+        } if(category){
+            let condition ={category:new RegExp(category)}
+            const course=await CourseModel.find(condition)
+           return res.status(200).send({"Course":course})
+          }
+        else{
             const courses=await CourseModel.find()
             // console.log(course)
            return res.status(200).send({"Course":courses})  
