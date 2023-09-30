@@ -58,9 +58,9 @@ router.patch("/update/:id",async(req,res)=>{
     const course=await CourseModel.findById(id)
     try {
         if(useremail==course.email){
-            const course=await CourseModel.findByIdAndUpdate(id,req.body)
-            const data=await CourseModel.findById(id)
-           return res.status(200).send({"Course":data})  
+            const course=await CourseModel.findByIdAndUpdate(id,req.body,{new:true})
+            
+           return res.status(200).send({"Course":course})  
         }
         else{
            return res.status(400).send("You Are Not Authorized")
