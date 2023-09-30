@@ -28,7 +28,7 @@ export const SingleDetailPage = () => {
   const navigate=useNavigate()
    useEffect(() => {
     fetch(
-      `https://etutorhub-server.onrender.com/course/singleProductPage/${courseId}`,
+      `http://localhost:8080/course/singleCourse/${courseId}`,
       {
         method: "GET",
         headers: {
@@ -40,7 +40,7 @@ export const SingleDetailPage = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data,'data')
-        setCourse(data)
+        setCourse(data.course[0])
       })
       .catch((err) => console.log(err));
     // singlePage()
@@ -212,7 +212,7 @@ export const SingleDetailPage = () => {
               <Box margin={"auto"}>
               <Button
                 rounded={"none"}                
-                w={"lg"}
+                w={"xl"}
                 mt={10}
                 size={"lg"}
                 py={"7"}
@@ -229,7 +229,7 @@ export const SingleDetailPage = () => {
                 onClick={addToCart}
                 borderRadius={"5px"}
                 // position={"fixed"}
-              >
+              >  
                 Buy Now
               </Button>
               </Box>
