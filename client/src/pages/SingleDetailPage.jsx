@@ -16,19 +16,23 @@ import {
   useColorModeValue,
   List,
   ListItem,
+  SkeletonText,
 } from "@chakra-ui/react";
+
 // import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import RatingStars from "../components/RatingComponent/RatingStars";
 
 export const SingleDetailPage = () => {
   const { courseId } = useParams();
-  console.log('courseId:', courseId)
+  const [loading,setLoading]=useState(false)
   const token = localStorage.getItem("frontendtoken");
   const [course, setCourse] = useState({});
   const navigate=useNavigate()
    useEffect(() => {
+    setLoading(true)
     fetch(
-      `https://etutorhub-server.onrender.com/course/singleProductPage/${courseId}`,
+      `https://etutorhub-server.onrender.com/course/singleCourse/${courseId}`,
+      // `http://localhost:8080/course/singleCourse/${courseId}`,
       {
         method: "GET",
         headers: {
@@ -39,8 +43,9 @@ export const SingleDetailPage = () => {
     )
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false)
         console.log(data,'data')
-        setCourse(data)
+        setCourse(data.course[0])
       })
       .catch((err) => console.log(err));
     // singlePage()
@@ -66,8 +71,11 @@ export const SingleDetailPage = () => {
   const addToCart=()=>{
     alert('Course successfully purchased!!')
   }
-  return (
-    <Container maxW={"7xl"} pt={{ base: "50px", md: "40px", lg: "80px" }}>
+  return (    
+    <div>
+      {loading ==true ? <Box padding='6' boxShadow='lg' bg='white' marginTop={"50px"}>
+      <SkeletonText mt='4' noOfLines={10} spacing='5' skeletonHeight='10' />
+      </Box>:    <Container maxW={"7xl"} pt={{ base: "50px", md: "40px", lg: "80px" }}>      
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
@@ -93,20 +101,6 @@ export const SingleDetailPage = () => {
             >
               {course.title}
             </Heading>
-            <Heading
-              //color={useColorModeValue("gray.900", "gray.400")}
-              lineHeight={1.5}
-              fontWeight={600}
-              fontSize={{ base: "xl", sm: "xl", lg: "2xl" }}
-              // width={"20%"}
-              color={"red"}
-              display={"flex"}
-            >
-              Price:
-              <Text as={"span"} color={"black"} ml={"4px"} fontWeight={300}>
-                ₹{course.price}
-              </Text>
-            </Heading>
           </Box>
 
           <Stack
@@ -114,10 +108,11 @@ export const SingleDetailPage = () => {
             direction={"column"}
             divider={
               <StackDivider
-                borderColor={useColorModeValue("gray.200", "gray.600")}
+                borderColor={"gray.600"}
               />
             }
           >
+            <Heading fontSize={"lg"} marginTop={"15px"} color={"gray.500"}>What you'll learn</Heading>
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text fontSize={"lg"}>{course.description}</Text>
             </VStack>
@@ -125,7 +120,7 @@ export const SingleDetailPage = () => {
             <Box>
               <Text
                 fontSize={{ base: "16px", lg: "18px" }}
-                color={useColorModeValue("yellow.500", "yellow.300")}
+                color={"yellow.500"}
                 fontWeight={"500"}
                 textTransform={"uppercase"}
                 mb={"4"}
@@ -138,6 +133,14 @@ export const SingleDetailPage = () => {
                 spacing={10}
               >
                 <List spacing={1}>
+                <ListItem>
+                    <Flex justifyContent="space-between">
+                      <Text as={"span"} fontWeight={"bold"}>
+                        Price:
+                      </Text>
+                      {course.price ? course.price : null}
+                    </Flex>
+                  </ListItem>
                   <ListItem>
                     <Flex justifyContent="space-between">
                       <Text as={"span"} fontWeight={"bold"}>
@@ -212,7 +215,7 @@ export const SingleDetailPage = () => {
               <Box margin={"auto"}>
               <Button
                 rounded={"none"}                
-                w={"lg"}
+                w={"xl"}
                 mt={10}
                 size={"lg"}
                 py={"7"}
@@ -229,7 +232,7 @@ export const SingleDetailPage = () => {
                 onClick={addToCart}
                 borderRadius={"5px"}
                 // position={"fixed"}
-              >
+              >  
                 Buy Now
               </Button>
               </Box>
@@ -260,5 +263,8 @@ export const SingleDetailPage = () => {
         </Stack>
       </SimpleGrid>
     </Container>
+    }
+    </div>
+
   );
 };
