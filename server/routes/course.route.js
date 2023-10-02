@@ -3,10 +3,8 @@ const bcrypt=require("bcrypt")
 const jwt=require("jsonwebtoken")
 
 const CourseModel = require("../models/course.models")
-const auth = require("../middlewares/auth.middlewares")
 const router=express.Router()
 
-router.use(auth)
 router.post("/addcourse",async(req,res)=>{
  
     try {
@@ -95,33 +93,31 @@ router.delete("/delete/:id",async(req,res)=>{
     }
 })
 
-router.get("/singleCourse/:id",async(req,res)=>{
-    const {id}=req.params
-    try {
-            const course=await CourseModel.findById(id)
-            // console.log(course)
-           return res.status(200).json({course})  
-    } catch (error) {
-        console.log(error)
-       return res.status(400).send( {"msg":"Something went wrong",error:error})
-    }
-})
-
-// router.get("/singleCourse/:id", async (req, res) => {
+// router.get("/singleCourse/:id",async(req,res)=>{
+//     const {id}=req.params
 //     try {
-//         const {id} = req.params;    
-//         console.log('id:', id)
-//     //   const course = await CourseModel.find({_id:courseId});
-//       const course=await CourseModel({_id:id})
-//       console.log('course:', course)
-//       if (!course) {
-//          res.status(404).json({ error: "Product not found" });
-//       }else{
-
-//           res.status(200).json(product);
-//       }
-//     } catch (err) {
-//       res.status(500).json({ error: err.message });
+//             const course=await CourseModel.findById(id)
+//             // console.log(course)
+//            return res.status(200).json({course})  
+//     } catch (error) {
+//         console.log(error)
+//        return res.status(400).send( {"msg":"Something went wrong",error:error})
 //     }
-//   });  
+// })
+
+router.get("/singleCourse/:id", async (req, res) => {
+    try {
+        const {id} = req.params;    
+        // console.log('id:', id) 
+      const course = await CourseModel.findOne({_id:id});
+    //   console.log('course:', course)
+      if (!course) {
+         res.status(404).json({ error: "course not found" });
+      }else{
+          res.status(200).json(course);
+      }
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });  
 module.exports=router

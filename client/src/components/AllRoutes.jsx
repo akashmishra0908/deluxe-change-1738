@@ -7,9 +7,8 @@ import SignUp from "../pages/Signup"
 import { SingleDetailPage } from '../pages/SingleDetailPage'
 import { ProductSide } from '../pages/ProductSide'
 import { PageNotFound } from '../pages/PageNotFound'
+import Cart from '../pages/Cart'
 import { PrivateRoute } from './PrivateRoute'
-
-
 
 const AllRoutes = () => {
   return (
@@ -21,8 +20,8 @@ const AllRoutes = () => {
         {/* <Route path='/product' element ={<Product/>} /> */}
         <Route path='/productSide' element ={<PrivateRoute><ProductSide/></PrivateRoute>} />
 
+       <Route path='/cart' element={<Cart/>} />
        <Route path='/detail/:courseId' element={<PrivateRoute><SingleDetailPage/></PrivateRoute>} />
-
         <Route path="*" element={<PageNotFound/>}/>
     </Routes>
   )
