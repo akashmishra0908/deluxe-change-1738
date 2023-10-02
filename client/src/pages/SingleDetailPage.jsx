@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 // import axios from "axios";
 import {
   Box,
@@ -27,12 +27,13 @@ export const SingleDetailPage = () => {
   const [loading,setLoading]=useState(false)
   const token = localStorage.getItem("frontendtoken");
   const [course, setCourse] = useState({});
+  const navigate=useNavigate()
   // const navigate=useNavigate()
    useEffect(() => {
     setLoading(true)
     fetch(
-      // `https://etutorhub-server.onrender.com/course/singleCourse/${courseId}`,
-      `http://localhost:8080/course/singleCourse/${courseId}`,
+      `https://etutorhub-server.onrender.com/course/singleCourse/${courseId}`,
+      // `http://localhost:8080/course/singleCourse/${courseId}`,
       {
         method: "GET",
         // headers: {
@@ -52,8 +53,8 @@ export const SingleDetailPage = () => {
   const addToCart = () => {
     // console.log(localStorage.getItem('frontendtoken'))
     fetch(
-      // `https://etutorhub-server.onrender.com/users/cart/${courseId}`,
-      `http://localhost:8080/users/cart/${courseId}`,
+      `https://etutorhub-server.onrender.com/users/cart/${courseId}`,
+      // `http://localhost:8080/users/cart/${courseId}`,
       {
         method: "PATCH",
         headers: {
@@ -69,6 +70,7 @@ export const SingleDetailPage = () => {
         }
        else{
           alert("Course Added to Cart!!")
+          navigate("/cart")
         }
       })
       .catch((err) => console.log(err));
@@ -214,7 +216,7 @@ export const SingleDetailPage = () => {
 
           {token ? (
             // <Link to={"/cart"} >
-              // {" "}
+              //  {" "}
               <Box margin={"auto"}>
               <Button
                 rounded={"none"}                
@@ -239,7 +241,7 @@ export const SingleDetailPage = () => {
                 Buy Now
               </Button>
               </Box>
-            // </Link>
+            //  {/* </Link> */}
           ) : (
             <Link to="/signin">
               <Button
