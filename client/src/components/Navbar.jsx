@@ -127,7 +127,27 @@ const Navbar = () => {
               >
                 Login
               </Link>
-
+              <Link
+                          href="/signup"
+                          textDecoration="none"
+                          marginRight="10px"
+                          padding="10px"
+                          //  height={"100px"}
+          
+                          width={"150px"} _hover={{
+                            bgColor: "white",
+                            color: "#9904fc",
+                            border: "2px solid #9904fc",
+                            // textDecoration: "none",
+                          }}
+                          borderRadius="5px"
+                          // fontWeight="bold"
+                          color="white"
+                          bg="green"
+                          display={{ base: "none", md: "block" }}
+                        >
+                          SignUp
+                        </Link>
             </Box>
           )}
         </Flex>
