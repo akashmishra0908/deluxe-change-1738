@@ -39,9 +39,15 @@ const Product = () => {
 
   return (
     <Box>
-      <Grid templateColumns='repeat(3, 1fr)' >
+      <Grid templateColumns={{
+        base: "repeat(1, 1fr)", // For the base screen size (extra small)
+        sm: "repeat(2, 1fr)", // For the small screen size (two columns)
+        md: "repeat(2, 1fr)", // For the medium screen size (three columns)
+        lg: "repeat(2, 1fr)", // For the large screen size (three columns)
+        xl: "repeat(3, 1fr)", // For extra large screen size (three columns)
+      }} >
         {course.map((item) => (
-          <Box key={item.id} width={"350"}>
+          <Box key={item._id} width={"350"}>
             <Card {...item} />
           </Box>
         ))}
