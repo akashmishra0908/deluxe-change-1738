@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import axios from "axios";
 import {
   Box,
@@ -27,50 +27,53 @@ export const SingleDetailPage = () => {
   const [loading,setLoading]=useState(false)
   const token = localStorage.getItem("frontendtoken");
   const [course, setCourse] = useState({});
-  const navigate=useNavigate()
+  // const navigate=useNavigate()
    useEffect(() => {
     setLoading(true)
     fetch(
-      `https://etutorhub-server.onrender.com/course/singleCourse/${courseId}`,
-      // `http://localhost:8080/course/singleCourse/${courseId}`,
+      // `https://etutorhub-server.onrender.com/course/singleCourse/${courseId}`,
+      `http://localhost:8080/course/singleCourse/${courseId}`,
       {
         method: "GET",
-        headers: {
-          // authorization: `Bearer ${localStorage.getItem("frontendtoken")}`
-          "Authorization":localStorage.getItem('frontendtoken')
-        },
+        // headers: {
+        //   "Authorization":localStorage.getItem('frontendtoken')
+        // },
       }
     )
       .then((res) => res.json())
       .then((data) => {
         setLoading(false)
         console.log(data,'data')
-        setCourse(data.course[0])
+        setCourse(data)
       })
       .catch((err) => console.log(err));
-    // singlePage()
   }, [courseId]);
 
-  // const addToCart = () => {
-  // // localStorage.setItem("cart", course.price);
-  // fetch(
-  //   `https://anxious-bull-glasses.cyclic.app/users/cart/${courseId}`,
-  //   {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       authorization: `Bearer ${localStorage.getItem("frontendtoken")}`
-  //     },
-  //   }
-  // )
-  //   .then((res) => res.json())
-  //   .then((data) => console.log(data))
-  //   .catch((err) => console.log(err));
-  // };
+  const addToCart = () => {
+    // console.log(localStorage.getItem('frontendtoken'))
+    fetch(
+      // `https://etutorhub-server.onrender.com/users/cart/${courseId}`,
+      `http://localhost:8080/users/cart/${courseId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Authorization":localStorage.getItem('frontendtoken')
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if(data.msg=='Course already exist in cart!'){
+          alert(data.msg)
+        }
+       else{
+          alert("Course Added to Cart!!")
+        }
+      })
+      .catch((err) => console.log(err));
+    };
 
-  const addToCart=()=>{
-    alert('Course successfully purchased!!')
-  }
   return (    
     <div>
       {loading ==true ? <Box padding='6' boxShadow='lg' bg='white' marginTop={"50px"}>
@@ -210,8 +213,8 @@ export const SingleDetailPage = () => {
           </Stack>
 
           {token ? (
-            <Link to={"/cart"} >
-              {" "}
+            // <Link to={"/cart"} >
+              // {" "}
               <Box margin={"auto"}>
               <Button
                 rounded={"none"}                
@@ -236,7 +239,7 @@ export const SingleDetailPage = () => {
                 Buy Now
               </Button>
               </Box>
-            </Link>
+            // </Link>
           ) : (
             <Link to="/signin">
               <Button

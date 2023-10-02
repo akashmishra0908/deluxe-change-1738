@@ -7,6 +7,7 @@ import SignUp from "../pages/Signup"
 import { SingleDetailPage } from '../pages/SingleDetailPage'
 import { ProductSide } from '../pages/ProductSide'
 import { PageNotFound } from '../pages/PageNotFound'
+import Cart from '../pages/Cart'
 
 
 
@@ -21,6 +22,7 @@ const AllRoutes = () => {
         <Route path='/productSide' element ={<ProductSide/>} />
 
        <Route path='/detail/:courseId' element={<SingleDetailPage/>} />
+       <Route path='/cart' element={<Cart/>} />
 
         <Route path="*" element={<PageNotFound/>}/>
     </Routes>
