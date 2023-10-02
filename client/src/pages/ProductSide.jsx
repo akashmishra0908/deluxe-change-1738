@@ -5,10 +5,10 @@ import Product from '../components/products/product';
 
 export const ProductSide = () => {
     return (
-        <Flex>
+        <Flex >
         <Sidebar/>
           <Flex>
-            <Product/>
+            {/* <Product/> */}
           </Flex>
         </Flex>
       );
