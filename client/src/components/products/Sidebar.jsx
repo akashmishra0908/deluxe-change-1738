@@ -11,6 +11,7 @@ import {
   Container,
   Box,
   Input,
+  SkeletonText,
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Card from "../Card";
@@ -51,7 +52,7 @@ const Sidebar = () => {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const categoryQuery = queryParams.get("category");
-    const sortByQuery = queryParams.get("field"); // Change to field
+    const sortByQuery = queryParams.get("sort"); // Change to field
     const sortOrderQuery = queryParams.get("sortBy"); // Change to sortBy
 
     if (categoryQuery) {
@@ -105,7 +106,7 @@ const Sidebar = () => {
   
     const queryString = queryParams.toString();
   
-    let url = `https://etutorhub-server.onrender.com/course?${queryString}`;
+    let url = `https://anxious-bull-glasses.cyclic.app/course?${queryString}`;
   
     fetch(url, {
       method: "GET",
@@ -190,7 +191,7 @@ const Sidebar = () => {
   }
 
   return (
-    <Flex     paddingTop={"100px"}>
+    <Flex  paddingTop={"100px"}>
       <Flex
         style={sidebarStyles} // Apply the sidebar styles here
         height={"auto"}
@@ -252,9 +253,8 @@ const Sidebar = () => {
           </Select>
         )}
       </Flex>
-      <Grid>
-  <GridItem>
-    <GridItem
+      {course?
+    <Grid
       templateColumns={{
         base: "repeat(1, 1fr)", // For the base screen size (extra small)
         sm: "repeat(2, 1fr)", // For the small screen size (two columns)
@@ -262,21 +262,16 @@ const Sidebar = () => {
         lg: "repeat(2, 1fr)", // For the large screen size (three columns)
         xl: "repeat(3, 1fr)", // For extra large screen size (three columns)
       }}
-      gap="20px"
-      width="100%"
+      // gap="20px"
+      // width="100%"
     >
-      {course
-        ? course.map((el) => (
-            <GridItem key={el._id}>
+      {course.map((el) => (
+            <Box key={el._id}>
               <Card {...el} />
-            </GridItem>
-          ))
-        : <Product/>
+            </Box>
+          ))}
+    </Grid> :<Product/>
       }
-    </GridItem>
-  </GridItem>
-</Grid>
-
 
     </Flex>
   );

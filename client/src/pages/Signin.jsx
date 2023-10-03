@@ -33,7 +33,7 @@ export const Signin = () => {
   const signinSuccess = (msg) => {
     toast({
       title: msg,
-      description: "Thank You!!",
+      description: "Welcome to e-TutorHub!",
       status: "success",
       duration: 9000,
       isClosable: true,
@@ -84,7 +84,8 @@ export const Signin = () => {
       .then((res) => {
         //alert(res.data.msg);
         localStorage.setItem("frontendtoken", res.data.Token);
-        console.log(res.data.Token)
+        localStorage.setItem("username", res.data.username);
+        console.log(res.data)
         if (res.data.msg === "Login successful!") {
           signinSuccess(res.data.msg);
           navigate("/");
@@ -92,7 +93,7 @@ export const Signin = () => {
         if (res.data.msg === "Please Fill All The Required Credentials") {
           fillAllCredential(res.data.msg);
         }
-        if (res.data.msg === "Password Not Match!!") {
+        if (res.data.msg === "Wrong credentials!") {
           wrongCredential(res.data.msg);
         }
         if (res.data.msg === "User Not Found!") {
