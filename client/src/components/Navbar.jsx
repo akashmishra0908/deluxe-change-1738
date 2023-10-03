@@ -9,21 +9,23 @@ import {
   Link,
   Button,
   Image,
-  Heading
+  Heading,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router";
-import logo from "../images/eTutorhub.jpeg"
+import logo from "../images/eTutorhub.jpeg";
+
 const Navbar = () => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const navigate = useNavigate();
   const [showResults, setShowResults] = useState(false);
   const token = localStorage.getItem("frontendtoken");
   const username = localStorage.getItem("username");
+
   const handleLogout = () => {
     localStorage.removeItem("frontendtoken");
-    navigate("/")
-
+    navigate("/");
   };
+
   const fontSize = useBreakpointValue({
     base: "10px",
     sm: "12px",
@@ -38,11 +40,11 @@ const Navbar = () => {
       align="center"
       justify="space-between"
       p={"4px 3px"}
-      bg="white" //white
-      // boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)"
+      bg="white" // white
       position="fixed"
       width="100%"
       zIndex={5}
+      borderBottom={"1px solid black"}
     >
       <Flex
         align="center"
@@ -56,54 +58,28 @@ const Navbar = () => {
         paddingLeft={"20px"}
       >
         <Link href="/">
-          <Image src={logo} width={"15%"} borderRadius={"50%"} /></Link>
-
+          <Image src={logo} width={"15%"} borderRadius={"50%"} />
+        </Link>
       </Flex>
-
 
       {!isMobile && (
         <Flex align="center">
-
           {token ? (
             <>
-
-            {/* <Heading paddingRight={"10px"}> Hi user</Heading> */}
-<<<<<<< HEAD
-              <Link href="/cart"
-=======
-              {/* <Link href="/mylearning"
->>>>>>> 41b48506edbe4bc0a62b90cc5f9bbd39f3601b1d
-                textDecoration="none"
+              <Button
                 marginRight="10px"
                 padding="10px"
                 _hover={{
                   bgColor: "white",
                   color: "black",
                   border: "2px solid black",
-                  // textDecoration: "none",
                 }}
                 borderRadius="5px"
-                // fontWeight="bold"
                 color="white"
                 bg="black"
                 display={{ base: "none", md: "block" }}
-
-              >My Courses</Link> */}
-                            <Button
-                marginRight="10px"
-                padding="10px"
-                _hover={{
-                  bgColor: "white",
-                  color: "black",
-                  border: "2px solid black",
-                  // textDecoration: "none",
-                }}
-                borderRadius="5px"
-                // fontWeight="bold"
-                color="white"
-                bg="black"
-                display={{ base: "none", md: "block" }}
-              >{username}               
+              >
+                {username}
               </Button>
 
               <Button
@@ -113,10 +89,8 @@ const Navbar = () => {
                   bgColor: "white",
                   color: "black",
                   border: "2px solid black",
-                  // textDecoration: "none",
                 }}
                 borderRadius="5px"
-                // fontWeight="bold"
                 color="white"
                 bg="black"
                 display={{ base: "none", md: "block" }}
@@ -132,16 +106,13 @@ const Navbar = () => {
                 textDecoration="none"
                 marginRight="10px"
                 padding="10px"
-                //  height={"100px"}
-
-                width={"150px"} _hover={{
+                width={"150px"}
+                _hover={{
                   bgColor: "white",
                   color: "#9904fc",
                   border: "2px solid #9904fc",
-                  // textDecoration: "none",
                 }}
                 borderRadius="5px"
-                // fontWeight="bold"
                 color="white"
                 bg="green"
                 display={{ base: "none", md: "block" }}
@@ -149,32 +120,29 @@ const Navbar = () => {
                 Login
               </Link>
               <Link
-                          href="/signup"
-                          textDecoration="none"
-                          marginRight="10px"
-                          padding="10px"
-                          //  height={"100px"}
-          
-                          width={"150px"} _hover={{
-                            bgColor: "white",
-                            color: "#9904fc",
-                            border: "2px solid #9904fc",
-                            // textDecoration: "none",
-                          }}
-                          borderRadius="5px"
-                          // fontWeight="bold"
-                          color="white"
-                          bg="green"
-                          display={{ base: "none", md: "block" }}
-                        >
-                          SignUp
-                        </Link>
+                href="/signup"
+                textDecoration="none"
+                marginRight="10px"
+                padding="10px"
+                width={"150px"}
+                _hover={{
+                  bgColor: "white",
+                  color: "#9904fc",
+                  border: "2px solid #9904fc",
+                }}
+                borderRadius="5px"
+                color="white"
+                bg="green"
+                display={{ base: "none", md: "block" }}
+              >
+                SignUp
+              </Link>
             </Box>
           )}
         </Flex>
       )}
-
     </Flex>
   );
-}
-export default Navbar
+};
+
+export default Navbar;

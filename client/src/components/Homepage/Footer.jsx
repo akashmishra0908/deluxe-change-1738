@@ -18,10 +18,16 @@ const Footer = () => {
     >
       <Grid
         templateColumns={{
-          base: "repeat(1, 1fr)", // Smallest screen size (1 column)
+          base: "repeat(1, 1fr)",  // Smallest screen size (1 column)
           sm: "repeat(2, 1fr)",
           md: "repeat(3, 1fr)", // Medium screen size (2 columns)
           lg: "repeat(4, 1fr)", // Large screen size (4 columns)
+        }}
+        width={{
+      
+          sm: "100%",
+          md: "100%",
+          lg: "100%",
         }}
         gap={4}
       >
