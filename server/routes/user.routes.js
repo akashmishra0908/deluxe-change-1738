@@ -33,10 +33,10 @@ router.post("/login",async(req,res)=>{
         if(user){
             const veriify=bcrypt.compareSync(pass,user.pass)
             if(!veriify){
-                return res.status(401).send("Wrong password or email")
+                return res.status(401).send({"msg":"Wrong credentials!"})
             }
             token=jwt.sign({userID:user._id},"masai",{expiresIn:"1d"})
-          return  res.status(200).send( {"msg":"Login successful!", "Token":token})
+          return  res.status(200).send( {"msg":"Login successful!","username":user.username,"Token":token})
         }else{
           return  res.status(400).send( {"msg":"User Not Found"})
         }
@@ -97,6 +97,8 @@ router.get("/cart",auth,async(req,res)=>{
   const userId=String(req.body.userID)
   const client=await UserModel.findById(userId)
   const checkID=client.cart
+  //  populating the cart field of the client document
+  // populate will replace those ObjectIDs with the actual documents from the referenced collection
   await client.populate("cart")
   res.json(client.cart)
   }catch(err){
@@ -104,4 +106,22 @@ router.get("/cart",auth,async(req,res)=>{
       return res.status(500).json({message:"Internal server error"})
   }
 })
+
+router.delete("/cart/:courseID",auth,async(req,res)=>{
+  try{
+  const userId=String(req.body.userID)
+  const client=await UserModel.findById(userId)
+   await UserModel.updateOne(
+    {_id:req.body.userID}, 
+    { $pull: { cart:req.params.courseID} })
+
+  await client.populate("cart")
+
+  res.send(client.cart)
+  }catch(err){
+      console.log(err)
+      return res.status(500).json({message:"Internal server error"})
+  }
+})
+
 module.exports=router

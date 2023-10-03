@@ -118,7 +118,7 @@ const Cart = () => {
             >
               KEEPLEARNING20{" "}
             </Box>{" "}
-            is applied
+            is available
           </Text>
           <Box width="100%" mt="10px" height="47px" pb={"90px"}>
             <Input

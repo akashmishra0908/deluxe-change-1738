@@ -26,4 +26,3 @@ export const getcart = (dispatch) => {
       dispatch({ type: CART_FAILURE });
     });
 };
-

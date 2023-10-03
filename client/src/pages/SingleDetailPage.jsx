@@ -17,6 +17,7 @@ import {
   List,
   ListItem,
   SkeletonText,
+  useToast,
 } from "@chakra-ui/react";
 
 // import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
@@ -28,7 +29,7 @@ export const SingleDetailPage = () => {
   const token = localStorage.getItem("frontendtoken");
   const [course, setCourse] = useState({});
   const navigate=useNavigate()
-  // const navigate=useNavigate()
+  const toast = useToast();
    useEffect(() => {
     setLoading(true)
     fetch(
@@ -66,10 +67,23 @@ export const SingleDetailPage = () => {
       .then((data) => {
         console.log(data)
         if(data.msg=='Course already exist in cart!'){
-          alert(data.msg)
+          toast({
+            title: "Course already exist in cart!", 
+            description: "Please add some other courses..",
+            status: "info",
+            duration: 9000,
+            isClosable: true,
+            position: "top",
+          })
         }
        else{
-          alert("Course Added to Cart!!")
+          toast({
+            title: "Course Added to Cart!",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+            position: "top",
+          })
           navigate("/cart")
         }
       })

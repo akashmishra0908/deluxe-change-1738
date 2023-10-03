@@ -46,11 +46,12 @@ const Product = () => {
         lg: "repeat(2, 1fr)", // For the large screen size (three columns)
         xl: "repeat(3, 1fr)", // For extra large screen size (three columns)
       }} >
-        {course.map((item) => (
-          <Box key={item._id} width={"350"}>
+       {course.map((item) => (
+          <Box key={item._id}>
             <Card {...item} />
           </Box>
         ))}
+        
       </Grid>
     </Box>
   );
