@@ -12,6 +12,7 @@ import {
   Box,
   Input,
   SkeletonText,
+  Spinner
 } from "@chakra-ui/react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Card from "../Card";
@@ -107,6 +108,7 @@ const Sidebar = () => {
     const queryString = queryParams.toString();
   
     let url = `https://anxious-bull-glasses.cyclic.app/course?${queryString}`;
+    setIsLoading(true);
   
     fetch(url, {
       method: "GET",
@@ -125,6 +127,7 @@ const Sidebar = () => {
         setCourse(data.course);
         setAllCourses(data.course);
         setTotalCourses(data.total);
+        setIsLoading(false)
         console.log(allCourses);
         // setLoading(false);
       })
@@ -162,6 +165,7 @@ const Sidebar = () => {
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (searchQuery.trim() !== "") {
+       
         fetchResults();
       } else {
         setSearchResults([]);
@@ -172,6 +176,8 @@ const Sidebar = () => {
   }, [searchQuery]);
 
   const fetchResults = async () => {
+  
+
     try {
       setIsLoading(true);
       const response = await fetch(
@@ -189,91 +195,101 @@ const Sidebar = () => {
       setIsLoading(false);
     }
   }
-
+console.log(isLoading);
   return (
-    <Flex  paddingTop={"100px"}>
-      <Flex
-        style={sidebarStyles} // Apply the sidebar styles here
-        height={"auto"}
-        direction="column"
-        width={{
-          sm: "13em", // 480px
-          md: "14em", // 768px
-          lg: "17em", // 992px
-          xl: "20em", // 1280px
-          "2xl": "23em", // 1536px
-        }}
-        padding={{
-          base: "10px",
-          sm: "20px",
-          md: "30px",
-          lg: "40px",
-          xl: "50px",
-        }}
-        borderRight={`1px solid ${borderColor}`}
-        backgroundColor="#faf9e8"
-        // backgroundColor={colorMode === "light" ? "white" : "#1A202C"}
-        color={colorMode === "light" ? "black" : "white"}
+    <>
+    {
+      isLoading? <Box><Spinner
+      thickness='4px'
+      speed='0.65s'
+      emptyColor='gray.200'
+      color='blue.500'
+      size='xl'
+    /></Box> :<Flex  paddingTop={"100px"}>
+    <Flex
+      style={sidebarStyles} // Apply the sidebar styles here
+      height={"auto"}
+      direction="column"
+      width={{
+        sm: "13em", // 480px
+        md: "14em", // 768px
+        lg: "17em", // 992px
+        xl: "20em", // 1280px
+        "2xl": "23em", // 1536px
+      }}
+      padding={{
+        base: "10px",
+        sm: "20px",
+        md: "30px",
+        lg: "40px",
+        xl: "50px",
+      }}
+      borderRight={`1px solid ${borderColor}`}
+      backgroundColor="#faf9e8"
+      // backgroundColor={colorMode === "light" ? "white" : "#1A202C"}
+      color={colorMode === "light" ? "black" : "white"}
+    >
+      <Heading
+        as="h2"
+        size={{ base: "sm", sm: "md", md: "l", lg: "l", xl: "xl" }}
+        marginBottom="20px"
       >
-        <Heading
-          as="h2"
-          size={{ base: "sm", sm: "md", md: "l", lg: "l", xl: "xl" }}
-          marginBottom="20px"
-        >
-          Search Here
-        </Heading>
-        <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Seach..." />
-        <Heading
-          as="h2"
-          size={{ base: "sm", sm: "md", md: "l", lg: "l", xl: "xl" }}
-          marginTop="10px"
-          marginBottom="10px"
-        >
-          Sort By
-        </Heading>
+        Search Here
+      </Heading>
+      <Input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Seach..." />
+      <Heading
+        as="h2"
+        size={{ base: "sm", sm: "md", md: "l", lg: "l", xl: "xl" }}
+        marginTop="10px"
+        marginBottom="10px"
+      >
+        Sort By
+      </Heading>
+      <Select
+        value={sortBy}
+        onChange={handleSortByChange}
+        marginBottom={{ base: "10px", md: "15px", xl: "20px" }}
+        color={textColor}
+      >
+        <option value="">None</option>
+        <option value="rating">Ratings</option>
+        <option value="price">Price</option>
+      </Select>
+      {sortBy && (
         <Select
-          value={sortBy}
-          onChange={handleSortByChange}
-          marginBottom={{ base: "10px", md: "15px", xl: "20px" }}
+          value={sortOrder}
+          onChange={handleSortOrderChange}
           color={textColor}
         >
           <option value="">None</option>
-          <option value="rating">Ratings</option>
-          <option value="price">Price</option>
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
         </Select>
-        {sortBy && (
-          <Select
-            value={sortOrder}
-            onChange={handleSortOrderChange}
-            color={textColor}
-          >
-            <option value="">None</option>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </Select>
-        )}
-      </Flex>
-      {course?
-    <Grid
-      templateColumns={{
-        base: "repeat(1, 1fr)", // For the base screen size (extra small)
-        sm: "repeat(2, 1fr)", // For the small screen size (two columns)
-        md: "repeat(2, 1fr)", // For the medium screen size (three columns)
-        lg: "repeat(2, 1fr)", // For the large screen size (three columns)
-        xl: "repeat(3, 1fr)", // For extra large screen size (three columns)
-      }}
-      // gap="20px"
-      // width="100%"
-    >
-      {course.map((el) => (
-            <Box key={el._id}>
-              <Card {...el} />
-            </Box>
-          ))}
-    </Grid> :<Product/>
-      }
-
+      )}
     </Flex>
+    {course?
+  <Grid
+    templateColumns={{
+      base: "repeat(1, 1fr)", // For the base screen size (extra small)
+      sm: "repeat(2, 1fr)", // For the small screen size (two columns)
+      md: "repeat(2, 1fr)", // For the medium screen size (three columns)
+      lg: "repeat(2, 1fr)", // For the large screen size (three columns)
+      xl: "repeat(3, 1fr)", // For extra large screen size (three columns)
+    }}
+    // gap="20px"
+    // width="100%"
+  >
+    {course.map((el) => (
+          <Box key={el._id}>
+            <Card {...el} />
+          </Box>
+        ))}
+  </Grid> :<Product/>
+    }
+
+  </Flex>
+    }</>
+    
   );
 };
 
