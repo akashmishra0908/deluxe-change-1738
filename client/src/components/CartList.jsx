@@ -17,7 +17,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-import { deleteCart, getcart } from "../redux/cart/action";
+import { getcart } from "../redux/cart/action";
 import { useDispatch } from "react-redux";
 import { MdLocalOffer } from "react-icons/md";
 export const CartList = ({
