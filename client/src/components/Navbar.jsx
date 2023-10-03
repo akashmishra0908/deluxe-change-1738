@@ -18,7 +18,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [showResults, setShowResults] = useState(false);
   const token = localStorage.getItem("frontendtoken");
-
+  const username = localStorage.getItem("username");
   const handleLogout = () => {
     localStorage.removeItem("frontendtoken");
     navigate("/")
@@ -68,7 +68,7 @@ const Navbar = () => {
             <>
 
             {/* <Heading paddingRight={"10px"}> Hi user</Heading> */}
-              <Link href="/mylearning"
+              {/* <Link href="/mylearning"
                 textDecoration="none"
                 marginRight="10px"
                 padding="10px"
@@ -84,7 +84,24 @@ const Navbar = () => {
                 bg="black"
                 display={{ base: "none", md: "block" }}
 
-              >My Courses</Link>
+              >My Courses</Link> */}
+                            <Button
+                marginRight="10px"
+                padding="10px"
+                _hover={{
+                  bgColor: "white",
+                  color: "black",
+                  border: "2px solid black",
+                  // textDecoration: "none",
+                }}
+                borderRadius="5px"
+                // fontWeight="bold"
+                color="white"
+                bg="black"
+                display={{ base: "none", md: "block" }}
+              >{username}               
+              </Button>
+
               <Button
                 marginRight="10px"
                 padding="10px"

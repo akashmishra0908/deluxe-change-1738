@@ -7,9 +7,6 @@ export const ProductSide = () => {
     return (
         <Flex >
         <Sidebar/>
-          <Flex>
-            {/* <Product/> */}
-          </Flex>
         </Flex>
       );
 }

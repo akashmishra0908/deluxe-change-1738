@@ -34,11 +34,6 @@ export const CartList = ({
   const dispatch = useDispatch();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const handleDelete = (_id) => {
-    dispatch(deleteCart(_id)).then((res) => {
-      dispatch(getcart);
-    });
-  };
 
   return (
     <Box pt={"16px"}>
@@ -100,9 +95,6 @@ export const CartList = ({
             display="block"
             _hover={{
               backgroundColor: "none",
-            }}
-            onClick={() => {
-              handleDelete(_id);
             }}
           >
             <Text
