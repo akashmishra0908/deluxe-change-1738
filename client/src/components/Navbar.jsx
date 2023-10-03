@@ -68,7 +68,7 @@ const Navbar = () => {
             <>
 
             {/* <Heading paddingRight={"10px"}> Hi user</Heading> */}
-              <Link href="/mylearning"
+              <Link href="/cart"
                 textDecoration="none"
                 marginRight="10px"
                 padding="10px"

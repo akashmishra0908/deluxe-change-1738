@@ -5,12 +5,14 @@ import {
     Grid,
     Image,
     useBreakpointValue,
+    Container,
   } from "@chakra-ui/react";
   
   const Section2 = () => {
     const columnCount = useBreakpointValue({ sm: 4, md: 6, lg: 8 });
   
     return (
+      <Container maxWidth={"100%"} paddingBottom={"10px"}>
       <Flex
         direction="column"
         gap={6}
@@ -90,6 +92,7 @@ import {
           </Flex>
         </Grid>
       </Flex>
+      </Container>
     );
   };
   

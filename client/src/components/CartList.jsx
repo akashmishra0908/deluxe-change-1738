@@ -17,7 +17,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-import { deleteCart, getcart } from "../redux/cart/action";
+import { getcart } from "../redux/cart/action";
 import { useDispatch } from "react-redux";
 import { MdLocalOffer } from "react-icons/md";
 export const CartList = ({
@@ -34,11 +34,11 @@ export const CartList = ({
   const dispatch = useDispatch();
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const handleDelete = (_id) => {
-    dispatch(deleteCart(_id)).then((res) => {
-      dispatch(getcart);
-    });
-  };
+  // const handleDelete = (_id) => {
+  //   dispatch(deleteCart(_id)).then((res) => {
+  //     dispatch(getcart);
+  //   });
+  // };
 
   return (
     <Box pt={"16px"}>
@@ -101,9 +101,9 @@ export const CartList = ({
             _hover={{
               backgroundColor: "none",
             }}
-            onClick={() => {
-              handleDelete(_id);
-            }}
+            // onClick={() => {
+            //   handleDelete(_id);
+            // }}
           >
             <Text
               textAlign={{ base: "center", md: "right" }}

@@ -92,9 +92,9 @@ const Sidebar = () => {
     const queryParams = new URLSearchParams();
   
     if (sortBy) {
-      queryParams.append("field", sortBy);
+      queryParams.append("sort", sortBy);
     }
-    queryParams.append("sortBy", sortOrder);
+    queryParams.append("sortOrder", sortOrder);
   
     const selectedCategories = categories.filter(
       (category) => categoryFilters[category]

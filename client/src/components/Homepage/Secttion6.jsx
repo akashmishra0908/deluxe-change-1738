@@ -1,8 +1,9 @@
-import { Button, Flex, Image, Text } from "@chakra-ui/react";
+import { Button, Container, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 // import sectionImage from "../../asset/sectionImage.png";
 const Section6 = () => {
   return (
+    <Container maxWidth={"100%"} paddingBottom={"10px"}>
     <Flex
       bgColor={"#ebf3ff"}
       gap={{
@@ -82,6 +83,7 @@ const Section6 = () => {
         </Flex>
       </Flex>
     </Flex>
+    </Container>
   );
 };
 
